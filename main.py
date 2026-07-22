@@ -36,8 +36,8 @@ def buscar_plataforma(biblioteca, plataforma):
                 lista.append(f"{titulo} -- Dueño del perfil: {usuario}")
     return lista
 
-def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): #lista_juegos siempre sera remplasada por biblioteca[usuario]
-    for juego in lista_juegos: #la recorremos completa
+def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): 
+    for juego in lista_juegos: 
         if juego["titulo"].upper() == titulo.upper():
             if modificacion == "horas":
                 juego["horas"] += valor_nuevo
@@ -105,17 +105,16 @@ def mostrar_biblioteca(diccionario_biblioteca):
     print("\n========================================")
     print("      BIBLIOTECA ACTUAL DE JUEGOS       ")
     print("========================================")
-    for usuario, lista_juegos in diccionario_biblioteca.items(): #Biblioteca 1: Recorremos los usuarios (keys) y sus listas (valores)
-        print(f"\nPerfil: {usuario.upper()}")
+    for usuario, lista_juegos in diccionario_biblioteca.items(): 
         print("-" * 40)
-        if len(lista_juegos) == 0: #Validamos internamente que el usuario tenga juegos en su lista
+        if len(lista_juegos) == 0: 
             print("[Sin juegos registrados]")
-        else: #Para la Lista y Bibliteca interna, recorremos la lista para abrir cada diccionario de juego
-            for i, juego in enumerate(lista_juegos, 1): #Le pasamos un 1 para que esteticamente los juegos partan del 1
-                print(f"{i}. Título: {juego['titulo']}") #esto solo se puede usar en prints esteticos
-                print(f"Plataforma: {juego['plataforma']} | Propietario: {juego['propietario']}") #ya que le estamos diciendo que
-                print(f"Formato: {juego['formato']} | Estado: {juego['estado']}") #el indice de numeracion parta en 1 y no en 0 para el usuario
-                print(f"Horas Jugadas: {juego['horas']} hrs.") #en un contexto de eliminar por ejemplo, eliminariamos el juego equivocado, se deja el enumerate solo
+        else: 
+            for i, juego in enumerate(lista_juegos, 1): 
+                print(f"{i}. Título: {juego['titulo']}") 
+                print(f"Plataforma: {juego['plataforma']} | Propietario: {juego['propietario']}") 
+                print(f"Formato: {juego['formato']} | Estado: {juego['estado']}") 
+                print(f"Horas Jugadas: {juego['horas']} hrs.") 
                 print("  " + "." * 35)
                 
     print("========================================\n")
