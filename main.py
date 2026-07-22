@@ -61,6 +61,18 @@ def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): #lista_j
             return True
     return False 
 
+def agregar_juego(lista_juegos, titulo, plataforma, propietario, formato, estado, horas):
+    nuevo_juego = {
+                    "titulo" : titulo,
+                    "plataforma" : plataforma,
+                    "propietario" : propietario,
+                    "formato" : formato,
+                    "estado" : estado,
+                    "horas" : horas
+        }
+    lista_juegos.append(nuevo_juego) 
+    return True
+
 def validar_titulo(titulo):
     if len(titulo) == 0:
         return False
@@ -160,7 +172,55 @@ def main():
             else:
                 print("El juego no existe en este perfil")
         elif opcion == 3:
-            pass
+            while True:
+                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario != "benjamin" and usuario != "primo":
+                    print("Usuario no existe en el sistema")
+                else:
+                    break
+            proceso_activo = True
+            if proceso_activo:
+                titulo = input("Ingrese el titulo del videojuego a agregar: ").strip()
+                validacion = validar_titulo(titulo)
+                if not validacion:
+                    print("Error el titulo no cumple con los requisitos. Proceso cancelado")
+                    proceso_activo = False
+                else:
+                    if buscar_juego(biblioteca[usuario], titulo):
+                        print("Error: el titulo ya existe en la coleccion de juegos")
+                        proceso_activo = False
+            if proceso_activo:
+                plataforma = input("Ingrese la plataforma del juego PS4/PC: ").upper()
+                if not validar_plataforma(plataforma):
+                    print("Error la plataforma no cumple con los requisitos. Proceso cancelado")
+                    proceso_activo = False
+            if proceso_activo:
+                propietario = input("Ingrese el propietario del juego yo/primo: ").lower()
+                if not validar_propietario(propietario):
+                    print("Error el propietario no cumple con los requisitos. Proceso cancelado")
+                    proceso_activo = False
+            if proceso_activo:
+                formato = input("Ingrese el formato del juego fisico/digital: ").lower()
+                if not validar_formato(formato):
+                    print("Error el formato no cumple con los requisitos. Proceso cancelado")
+                    proceso_activo = False
+            if proceso_activo:
+                estado = input("Ingrese el estado del juego pendiente/jugando/terminado: ").lower()
+                if not validar_estado(estado):
+                    print("Error el estado no cumple con los requisitos. Proceso cancelado")
+                    proceso_activo = False
+            if proceso_activo: 
+                try:
+                    horas = int(input("Ingrese la cantidad de horas del juego: "))
+                    if not validar_horas(horas):
+                        print("Error las horas no cumplen con los requisitos. Proceso cancelado")
+                        proceso_activo = False
+                except ValueError:
+                    print("Debes ingresar datos numericos")
+                    proceso_activo = False
+            if proceso_activo:
+                agregar_juego(biblioteca[usuario], titulo, plataforma, propietario, formato, estado, horas)
+                print("Juego agregado")
         elif opcion == 4:
             pass
         elif opcion == 5:
