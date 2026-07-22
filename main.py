@@ -79,7 +79,50 @@ def main():
                 for i in lista:
                     print(i)
         elif opcion == 2:
-            pass
+            while True:
+                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario != "benjamin" and usuario != "primo":
+                    print("Usuario no existe en el sistema")
+                else:
+                    break
+            titulo = input("Ingrese el nombre del titulo a actualizar: ")
+            validacion = buscar_juego(biblioteca[usuario], titulo)
+            if validacion:
+                while True:
+                    print("¿Que desea actualizar?")
+                    print("1.- Horas Jugadas")
+                    print("2.- Estado del Juego")
+                    try:
+                        option = int(input("Ingrese la opcion que desea: "))
+                        if option == 1:
+                            while True:
+                                try:
+                                    horas = int(input("Ingrese las horas adicionales: "))
+                                    if horas < 0:
+                                        print("Debes ingresar un entero positivo")
+                                    else:
+                                        if actualizar_juego(biblioteca[usuario], titulo, "horas", horas):
+                                            print("Progreso actualizado con éxito.")
+                                        break
+                                except ValueError:
+                                    print("Solo debes ingresar datos numericos")
+                            break
+                        elif option == 2:
+                            while True:
+                                estado = input("Ingrese la actualizacion de estado del juego: pendiente/jugando/terminado: ").lower()
+                                if estado == "pendiente" or estado == "jugando" or estado == "terminado":
+                                    if actualizar_juego(biblioteca[usuario], titulo, "estado", estado):
+                                        print("Progreso actualizado con éxito.")
+                                        break
+                                else:
+                                    print("Solo puedes ingresar pendiente/jugando/terminado")
+                            break
+                        else:
+                            print("Ingresaste una opcion fuera de rango")
+                    except ValueError:
+                        print("Solo puedes ingresar datos numericos")
+            else:
+                print("El juego no existe en este perfil")
         elif opcion == 3:
             pass
         elif opcion == 4:
