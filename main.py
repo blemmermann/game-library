@@ -20,7 +20,8 @@ def menu():
     print("2. Actualizar progreso de juego (Horas / Estado)")
     print("3. Agregar nuevo juego a un perfil")
     print("4. Eliminar juego de un perfil ")
-    print("5. Salir")
+    print("5. Ver biblioteca completa de juegos")
+    print("6. Salir")
     print("=====================================")
 
 def leer_opcion(min , max):
@@ -116,6 +117,25 @@ def eliminar_juego(lista_juegos, nombre_buscar):
             return True 
     return False 
 
+def mostrar_biblioteca(diccionario_biblioteca):
+    print("\n========================================")
+    print("      BIBLIOTECA ACTUAL DE JUEGOS       ")
+    print("========================================")
+    for usuario, lista_juegos in diccionario_biblioteca.items(): #Biblioteca 1: Recorremos los usuarios (keys) y sus listas (valores)
+        print(f"\nPerfil: {usuario.upper()}")
+        print("-" * 40)
+        if len(lista_juegos) == 0: #Validamos internamente que el usuario tenga juegos en su lista
+            print("[Sin juegos registrados]")
+        else: #Para la Lista y Bibliteca interna, recorremos la lista para abrir cada diccionario de juego
+            for i, juego in enumerate(lista_juegos, 1): #Le pasamos un 1 para que esteticamente los juegos partan del 1
+                print(f"{i}. Título: {juego['titulo']}") #esto solo se puede usar en prints esteticos
+                print(f"Plataforma: {juego['plataforma']} | Propietario: {juego['propietario']}") #ya que le estamos diciendo que
+                print(f"Formato: {juego['formato']} | Estado: {juego['estado']}") #el indice de numeracion parta en 1 y no en 0 para el usuario
+                print(f"Horas Jugadas: {juego['horas']} hrs.") #en un contexto de eliminar por ejemplo, eliminariamos el juego equivocado, se deja el enumerate solo
+                print("  " + "." * 35)
+                
+    print("========================================\n")
+
 def main():
 
     #aca va el diccionario de ejemplo
@@ -123,7 +143,7 @@ def main():
     while True:
         menu()
 
-        opcion = leer_opcion(1,5)
+        opcion = leer_opcion(1,6)
         if opcion == 1:
             plataforma = input("Ingrese el nombre de la plataforma a buscar: ")
             lista = buscar_plataforma(biblioteca, plataforma)
@@ -242,6 +262,8 @@ def main():
             else:
                 print("El juego no existe")
         elif opcion == 5:
+            pass
+        elif opcion == 6:
             print("Sistema de gestión finalizado.")
             break
 
