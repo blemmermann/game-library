@@ -61,6 +61,42 @@ def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): #lista_j
             return True
     return False 
 
+def validar_titulo(titulo):
+    if len(titulo) == 0:
+        return False
+    else:
+        return True
+
+def validar_plataforma(plataforma):
+    if plataforma.upper() == "PS4" or plataforma.upper() == "PC":
+        return True
+    else:
+        return False
+
+def validar_propietario(propietario):
+    if propietario.lower() == "yo" or propietario.lower() == "primo":
+        return True
+    else:
+        return False
+
+def validar_formato(formato):
+    if formato.lower() == "fisico" or formato.lower() == "digital":
+        return True
+    else:
+        return False
+
+def validar_estado(estado): 
+    if estado.lower() == "pendiente" or estado.lower() == "jugando" or estado.lower() == "terminado":
+        return True
+    else:
+        return False
+    
+def validar_horas(horas):
+    if horas >= 0:
+        return True
+    else:
+        return False
+
 def main():
 
     #aca va el diccionario de ejemplo
