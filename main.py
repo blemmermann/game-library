@@ -1,19 +1,3 @@
-#biblioteca {"usuario": ["titulo", "plataforma, "propietario", "formato", "estado, "horas]}
-
-biblioteca = { 
-"benjamin": [ 
-{"titulo": "Red Dead Redemption 2", "plataforma": "PS4", "propietario": "yo", "formato": "fisico", 
-"estado": "jugando", "horas": 120}, 
-{"titulo": "Diablo 4", "plataforma": "PC", "propietario": "yo", "formato": "digital", "estado": 
-"terminado", "horas": 300} 
-    ], 
-"primo": [ 
-{"titulo": "Infamous 2", "plataforma": "PS4", "propietario": "primo", "formato": "fisico", "estado": 
-"pendiente", "horas": 0} 
-    ] 
-        } 
-
-
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
     print("1. Buscar juegos por plataforma compartida")
@@ -137,12 +121,20 @@ def mostrar_biblioteca(diccionario_biblioteca):
     print("========================================\n")
 
 def main():
-
-    #aca va el diccionario de ejemplo
-
+    biblioteca = { 
+                    "benjamin": [ 
+                    {"titulo": "Red Dead Redemption 2", "plataforma": "PS4", "propietario": "yo", "formato": "fisico", 
+                    "estado": "jugando", "horas": 120}, 
+                    {"titulo": "Diablo 4", "plataforma": "PC", "propietario": "yo", "formato": "digital", "estado": 
+                    "terminado", "horas": 300} 
+                        ], 
+                    "primo": [ 
+                    {"titulo": "Infamous 2", "plataforma": "PS4", "propietario": "primo", "formato": "fisico", "estado": 
+                    "pendiente", "horas": 0} 
+    ] 
+        } 
     while True:
         menu()
-
         opcion = leer_opcion(1,6)
         if opcion == 1:
             plataforma = input("Ingrese el nombre de la plataforma a buscar: ")
@@ -238,7 +230,7 @@ def main():
                     proceso_activo = False
             if proceso_activo: 
                 try:
-                    horas = int(input("Ingrese la cantidad de horas del juego: "))
+                    horas = int(input("Ingrese la cantidad de horas jugadas: "))
                     if not validar_horas(horas):
                         print("Error las horas no cumplen con los requisitos. Proceso cancelado")
                         proceso_activo = False
@@ -262,11 +254,10 @@ def main():
             else:
                 print("El juego no existe")
         elif opcion == 5:
-            pass
+            mostrar_biblioteca(biblioteca)
         elif opcion == 6:
             print("Sistema de gestión finalizado.")
             break
-
 if __name__ == "__main__":
     main()
 
