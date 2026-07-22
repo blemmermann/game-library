@@ -109,6 +109,13 @@ def validar_horas(horas):
     else:
         return False
 
+def eliminar_juego(lista_juegos, nombre_buscar):
+    for i, juego in enumerate(lista_juegos): 
+        if juego["titulo"].upper() == nombre_buscar.upper():
+            del lista_juegos[i] 
+            return True 
+    return False 
+
 def main():
 
     #aca va el diccionario de ejemplo
@@ -222,7 +229,18 @@ def main():
                 agregar_juego(biblioteca[usuario], titulo, plataforma, propietario, formato, estado, horas)
                 print("Juego agregado")
         elif opcion == 4:
-            pass
+            while True:
+                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario != "benjamin" and usuario != "primo":
+                    print("Usuario no existe en el sistema")
+                else:
+                    break
+            titulo = input("Ingrese el titulo del juego: ").upper()
+            if buscar_juego(biblioteca[usuario], titulo):
+                eliminar_juego(biblioteca[usuario], titulo)
+                print( "Juego eliminado")
+            else:
+                print("El juego no existe")
         elif opcion == 5:
             print("Sistema de gestión finalizado.")
             break
