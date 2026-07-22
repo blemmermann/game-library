@@ -51,6 +51,16 @@ def buscar_plataforma(biblioteca, plataforma):
                 lista.append(f"{titulo} -- Dueño del perfil: {usuario}")
     return lista
 
+def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): #lista_juegos siempre sera remplasada por biblioteca[usuario]
+    for juego in lista_juegos: #la recorremos completa
+        if juego["titulo"].upper() == titulo.upper():
+            if modificacion == "horas":
+                juego["horas"] += valor_nuevo
+            elif modificacion == "estado":
+                juego["estado"] = valor_nuevo
+            return True
+    return False 
+
 def main():
 
     #aca va el diccionario de ejemplo
@@ -70,9 +80,9 @@ def main():
                     print(i)
         elif opcion == 2:
             pass
-        elif opcion == 2:
+        elif opcion == 3:
             pass
-        elif opcion == 2:
+        elif opcion == 4:
             pass
         elif opcion == 5:
             print("Sistema de gestión finalizado.")
