@@ -40,3 +40,9 @@ class Usuario:
                 texto = f"{juego.get_titulo()} -- Dueño del perfil: {self.__nombre}" # Construimos el mismo texto anterior
                 juegos_encontrados.append(texto)
         return juegos_encontrados
+
+    def obtener_juego(self, titulo_buscar):
+        for juego in self.__lista_juegos:
+            if juego.get_titulo().upper() == titulo_buscar.upper():
+                return juego
+        return None

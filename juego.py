@@ -41,17 +41,18 @@ class Juego:
         print("Error: Las horas adicionales deben ser mayores a 0.")
         return False
 
-rdr2 = Juego("Red dead redemption 2", "PS4", "yo", "digital", "jugando", 30)
+if __name__ == "__main__":
+    rdr2 = Juego("Red dead redemption 2", "PS4", "yo", "digital", "jugando", 30)
 
-print(f"Titulo: {rdr2.get_titulo()}") 
-print(f"Plataforma: {rdr2.get_plataforma()}")
-print(f"Propietario: {rdr2.get_propietario()}")
-print(f"Formato: {rdr2.get_formato()}")
-print(f"Estado: {rdr2.get_estado()}")
-print(f"Horas: {rdr2.get_horas()} horas")
+    print(f"Titulo: {rdr2.get_titulo()}") 
+    print(f"Plataforma: {rdr2.get_plataforma()}")
+    print(f"Propietario: {rdr2.get_propietario()}")
+    print(f"Formato: {rdr2.get_formato()}")
+    print(f"Estado: {rdr2.get_estado()}")
+    print(f"Horas: {rdr2.get_horas()} horas")
 
-rdr2.set_estado("terminado")
-rdr2.set_horas(100)
+    rdr2.set_estado("terminado")
+    rdr2.set_horas(100)
 
-print(f"Estado: {rdr2.get_estado()}")
-print(f"Horas: {rdr2.get_horas()} horas")
+    print(f"Estado: {rdr2.get_estado()}")
+    print(f"Horas: {rdr2.get_horas()} horas")
