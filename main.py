@@ -1,3 +1,71 @@
+class Juego:
+    def __init__(self, titulo, plataforma, propietario, formato, estado, horas):
+        self.__titulo = titulo #self.titulo almacena el valor que tendrá titulo cuando se ejecute la asignación.
+        self.__plataforma = plataforma #el doble "__" vuelve privados los atributos para no acceder a ellos
+        self.__propietario = propietario #de manera externa, solo a traves de métodos
+        self.__formato = formato
+        self.__estado = estado.lower()
+        self.__horas = horas 
+
+    def detalles(self):
+        print(f"Titulo: {self.__titulo}")
+        print(f"Plataforma: {self.__plataforma}")
+        print(f"Propietario: {self.__propietario}")
+        print(f"Formato: {self.__formato}")
+        print(f"Estado: {self.__estado}")
+        print(f"Horas: {self.__horas}")
+
+    def get_titulo(self):
+        return self.__titulo #Obtiene o lee el valor del dato privado __titulo y lo devuelve.
+
+    def get_plataforma(self):
+        return self.__plataforma
+
+    def get_propietario(self):
+        return self.__propietario
+
+    def get_formato(self):
+        return self.__formato
+
+    def get_estado(self):
+        return self.__estado
+
+    def get_horas(self):
+        return self.__horas
+
+    def set_estado(self, nuevo_estado):
+        estado_limpio = nuevo_estado.lower() #Validamos y guardamos el estado estrictamente en minúsculas.
+        if estado_limpio in ["pendiente", "jugando", "terminado"]:
+            self.__estado = estado_limpio  # Asignación con '=' simple
+            return True
+            
+        print(f"Error: '{nuevo_estado}' no es un estado válido.")
+        return False
+
+    def agregar_horas(self, horas_adicionales):
+        if horas_adicionales > 0:
+            self.__horas += horas_adicionales
+            return True
+        print("Error: Las horas adicionales deben ser mayores a 0.")
+        return False
+
+rdr2 = Juego("Red dead redemption 2", "PS4", "yo", "digital", "jugando", 30)
+
+print(f"Titulo: {rdr2.get_titulo()}") #comprobamos el estado de los atributos a traves de getters
+print(f"Plataforma: {rdr2.get_plataforma()}")
+print(f"Propietario: {rdr2.get_propietario()}")
+print(f"Formato: {rdr2.get_formato()}")
+print(f"Estado: {rdr2.get_estado()}")
+print(f"Horas: {rdr2.get_horas()} horas")
+
+rdr2.set_estado("terminado")
+rdr2.set_horas(100)
+
+print(f"Estado: {rdr2.get_estado()}")
+print(f"Horas: {rdr2.get_horas()} horas")
+
+#hasta aqui es todo POO
+
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
     print("1. Buscar juegos por plataforma compartida")
