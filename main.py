@@ -1,70 +1,7 @@
-class Juego:
-    def __init__(self, titulo, plataforma, propietario, formato, estado, horas):
-        self.__titulo = titulo #self.titulo almacena el valor que tendrá titulo cuando se ejecute la asignación.
-        self.__plataforma = plataforma #el doble "__" vuelve privados los atributos para no acceder a ellos
-        self.__propietario = propietario #de manera externa, solo a traves de métodos
-        self.__formato = formato
-        self.__estado = estado.lower()
-        self.__horas = horas 
+from juego import Juego
+from usuario import Usuario
 
-    def detalles(self):
-        print(f"Titulo: {self.__titulo}")
-        print(f"Plataforma: {self.__plataforma}")
-        print(f"Propietario: {self.__propietario}")
-        print(f"Formato: {self.__formato}")
-        print(f"Estado: {self.__estado}")
-        print(f"Horas: {self.__horas}")
-
-    def get_titulo(self):
-        return self.__titulo #Obtiene o lee el valor del dato privado __titulo y lo devuelve.
-
-    def get_plataforma(self):
-        return self.__plataforma
-
-    def get_propietario(self):
-        return self.__propietario
-
-    def get_formato(self):
-        return self.__formato
-
-    def get_estado(self):
-        return self.__estado
-
-    def get_horas(self):
-        return self.__horas
-
-    def set_estado(self, nuevo_estado):
-        estado_limpio = nuevo_estado.lower() #Validamos y guardamos el estado estrictamente en minúsculas.
-        if estado_limpio in ["pendiente", "jugando", "terminado"]:
-            self.__estado = estado_limpio  # Asignación con '=' simple
-            return True
-            
-        print(f"Error: '{nuevo_estado}' no es un estado válido.")
-        return False
-
-    def agregar_horas(self, horas_adicionales):
-        if horas_adicionales > 0:
-            self.__horas += horas_adicionales
-            return True
-        print("Error: Las horas adicionales deben ser mayores a 0.")
-        return False
-
-rdr2 = Juego("Red dead redemption 2", "PS4", "yo", "digital", "jugando", 30)
-
-print(f"Titulo: {rdr2.get_titulo()}") #comprobamos el estado de los atributos a traves de getters
-print(f"Plataforma: {rdr2.get_plataforma()}")
-print(f"Propietario: {rdr2.get_propietario()}")
-print(f"Formato: {rdr2.get_formato()}")
-print(f"Estado: {rdr2.get_estado()}")
-print(f"Horas: {rdr2.get_horas()} horas")
-
-rdr2.set_estado("terminado")
-rdr2.set_horas(100)
-
-print(f"Estado: {rdr2.get_estado()}")
-print(f"Horas: {rdr2.get_horas()} horas")
-
-#hasta aqui es todo POO
+biblioteca = []
 
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
@@ -86,45 +23,6 @@ def leer_opcion(min , max):
     except ValueError:
         print("Debes ingresar datos numericos")
 
-def buscar_juego(lista_juegos, titulo): 
-    for juego in lista_juegos: 
-        if juego["titulo"].upper() == titulo.upper(): 
-            return True 
-    else:
-        return False
-
-def buscar_plataforma(biblioteca, plataforma):
-    lista = []
-    for clave, valor in biblioteca.items(): 
-        usuario = clave
-        lista_juegos = valor 
-        for juego in lista_juegos:
-            if juego["plataforma"].upper() == plataforma.upper():
-                titulo = juego["titulo"]
-                lista.append(f"{titulo} -- Dueño del perfil: {usuario}")
-    return lista
-
-def actualizar_juego(lista_juegos , titulo, modificacion, valor_nuevo): 
-    for juego in lista_juegos: 
-        if juego["titulo"].upper() == titulo.upper():
-            if modificacion == "horas":
-                juego["horas"] += valor_nuevo
-            elif modificacion == "estado":
-                juego["estado"] = valor_nuevo
-            return True
-    return False 
-
-def agregar_juego(lista_juegos, titulo, plataforma, propietario, formato, estado, horas):
-    nuevo_juego = {
-                    "titulo" : titulo,
-                    "plataforma" : plataforma,
-                    "propietario" : propietario,
-                    "formato" : formato,
-                    "estado" : estado,
-                    "horas" : horas
-        }
-    lista_juegos.append(nuevo_juego) 
-    return True
 
 def validar_titulo(titulo):
     if len(titulo) == 0:
@@ -162,94 +60,70 @@ def validar_horas(horas):
     else:
         return False
 
-def eliminar_juego(lista_juegos, nombre_buscar):
-    for i, juego in enumerate(lista_juegos): 
-        if juego["titulo"].upper() == nombre_buscar.upper():
-            del lista_juegos[i] 
-            return True 
-    return False 
-
-def mostrar_biblioteca(diccionario_biblioteca):
-    print("\n========================================")
-    print("      BIBLIOTECA ACTUAL DE JUEGOS       ")
-    print("========================================")
-    for usuario, lista_juegos in diccionario_biblioteca.items(): 
-        print("-" * 40)
-        if len(lista_juegos) == 0: 
-            print("[Sin juegos registrados]")
-        else: 
-            for i, juego in enumerate(lista_juegos, 1): 
-                print(f"{i}. Título: {juego['titulo']}") 
-                print(f"Plataforma: {juego['plataforma']} | Propietario: {juego['propietario']}") 
-                print(f"Formato: {juego['formato']} | Estado: {juego['estado']}") 
-                print(f"Horas Jugadas: {juego['horas']} hrs.") 
-                print("  " + "." * 35)
-                
-    print("========================================\n")
-
 def main():
-    biblioteca = { 
-                    "benjamin": [ 
-                    {"titulo": "Red Dead Redemption 2", "plataforma": "PS4", "propietario": "yo", "formato": "fisico", 
-                    "estado": "jugando", "horas": 120}, 
-                    {"titulo": "Diablo 4", "plataforma": "PC", "propietario": "yo", "formato": "digital", "estado": 
-                    "terminado", "horas": 300} 
-                        ], 
-                    "primo": [ 
-                    {"titulo": "Infamous 2", "plataforma": "PS4", "propietario": "primo", "formato": "fisico", "estado": 
-                    "pendiente", "horas": 0} 
-    ] 
-        } 
+
+    usuario_benjamin = Usuario("benjamin")
+    usuario_primo = Usuario("primo")
+
+    rdr2 = Juego("Red dead redemtion 2", "PS4", "yo", "digital", "jugando", 30)
+    diablo = Juego("Diablo IV", "PC", "yo", "digital", "terminado", 100)
+    infamous = Juego("Infamous second son", "PS4", "primo", "fisico", "pendiente", 0)
+
+    usuario_benjamin.agregar_juego(rdr2)
+    usuario_benjamin.agregar_juego(diablo)
+    usuario_primo.agregar_juego(infamous)
+
     while True:
         menu()
         opcion = leer_opcion(1,6)
         if opcion == 1:
-            plataforma = input("Ingrese el nombre de la plataforma a buscar: ")
-            lista = buscar_plataforma(biblioteca, plataforma)
-            if len(lista) == 0:
-                print("No hay juegos para esta plataforma") 
+            plataforma = input("Ingrese el nombre de la plataforma a buscar: ").strip().upper()
+            
+            lista_benjamin = usuario_benjamin.buscar_por_plataforma(plataforma) # Cada objeto/instancia busca en su propia lista privada
+            lista_primo = usuario_primo.buscar_por_plataforma(plataforma)
+            
+            lista_total = lista_benjamin + lista_primo # Unimos los resultados de todos los perfiles
+            
+            if len(lista_total) == 0:
+                print(f"No hay juegos para esta plataforma") 
             else:
-                print(f"Juegos encontrados en {plataforma}")
-                for i in lista:
-                    print(i)
+                print(f"\nJuegos encontrados en {plataforma}")
+                for resultado in lista_total:
+                    print(resultado)
+                print("") # Un salto de línea estético
         elif opcion == 2:
             while True:
-                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
-                if usuario != "benjamin" and usuario != "primo":
-                    print("Usuario no existe en el sistema")
-                else:
+                usuario_elegido = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario_elegido in ["benjamin", "primo"]:
                     break
-            titulo = input("Ingrese el nombre del titulo a actualizar: ")
-            validacion = buscar_juego(biblioteca[usuario], titulo)
-            if validacion:
+                print("Usuario no existe en el sistema")
+
+            objeto_usuario = usuario_benjamin if usuario_elegido == "benjamin" else usuario_primo
+            titulo = input("Ingrese el nombre del titulo a actualizar: ").strip()
+            
+            juego_encontrado = objeto_usuario.obtener_juego(titulo) # Pedimos el objeto al usuario
+
+            if juego_encontrado:
                 while True:
-                    print("¿Que desea actualizar?")
+                    print("\n¿Que desea actualizar?")
                     print("1.- Horas Jugadas")
                     print("2.- Estado del Juego")
                     try:
                         option = int(input("Ingrese la opcion que desea: "))
+                        
                         if option == 1:
-                            while True:
-                                try:
-                                    horas = int(input("Ingrese las horas adicionales: "))
-                                    if horas < 0:
-                                        print("Debes ingresar un entero positivo")
-                                    else:
-                                        if actualizar_juego(biblioteca[usuario], titulo, "horas", horas):
-                                            print("Progreso actualizado con éxito.")
-                                        break
-                                except ValueError:
-                                    print("Solo debes ingresar datos numericos")
+                            try:
+                                horas = int(input("Ingrese las horas adicionales: "))
+                                if juego_encontrado.agregar_horas(horas): # Delegamos la actualización y validación directamente al objeto Juego
+                                    print("Progreso de horas actualizado con éxito.")
+                            except ValueError:
+                                print("Solo debes ingresar datos numericos")
                             break
+                            
                         elif option == 2:
-                            while True:
-                                estado = input("Ingrese la actualizacion de estado del juego: pendiente/jugando/terminado: ").lower()
-                                if estado == "pendiente" or estado == "jugando" or estado == "terminado":
-                                    if actualizar_juego(biblioteca[usuario], titulo, "estado", estado):
-                                        print("Progreso actualizado con éxito.")
-                                        break
-                                else:
-                                    print("Solo puedes ingresar pendiente/jugando/terminado")
+                            nuevo_estado = input("Ingrese el estado (pendiente/jugando/terminado): ").lower()
+                            if juego_encontrado.set_estado(nuevo_estado): # El setter set_estado() valida internamente si el string es correcto
+                                print("Estado actualizado con éxito.")
                             break
                         else:
                             print("Ingresaste una opcion fuera de rango")
@@ -259,42 +133,48 @@ def main():
                 print("El juego no existe en este perfil")
         elif opcion == 3:
             while True:
-                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
-                if usuario != "benjamin" and usuario != "primo":
+                usuario_elegido = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario_elegido != "benjamin" and usuario_elegido != "primo":
                     print("Usuario no existe en el sistema")
                 else:
                     break
+            
+            objeto_usuario = usuario_benjamin if usuario_elegido == "benjamin" else usuario_primo # Determinamos cuál es el objeto contenedor objetivo
             proceso_activo = True
+            
             if proceso_activo:
                 titulo = input("Ingrese el titulo del videojuego a agregar: ").strip()
-                validacion = validar_titulo(titulo)
-                if not validacion:
+                if not validar_titulo(titulo):
                     print("Error el titulo no cumple con los requisitos. Proceso cancelado")
                     proceso_activo = False
-                else:
-                    if buscar_juego(biblioteca[usuario], titulo):
-                        print("Error: el titulo ya existe en la coleccion de juegos")
-                        proceso_activo = False
+                elif objeto_usuario.buscar_juego(titulo):
+                    print("Error: el titulo ya existe en la coleccion de juegos")
+                    proceso_activo = False
+                    
             if proceso_activo:
                 plataforma = input("Ingrese la plataforma del juego PS4/PC: ").upper()
                 if not validar_plataforma(plataforma):
                     print("Error la plataforma no cumple con los requisitos. Proceso cancelado")
                     proceso_activo = False
+                    
             if proceso_activo:
                 propietario = input("Ingrese el propietario del juego yo/primo: ").lower()
                 if not validar_propietario(propietario):
                     print("Error el propietario no cumple con los requisitos. Proceso cancelado")
                     proceso_activo = False
+                    
             if proceso_activo:
                 formato = input("Ingrese el formato del juego fisico/digital: ").lower()
                 if not validar_formato(formato):
                     print("Error el formato no cumple con los requisitos. Proceso cancelado")
                     proceso_activo = False
+                    
             if proceso_activo:
                 estado = input("Ingrese el estado del juego pendiente/jugando/terminado: ").lower()
                 if not validar_estado(estado):
                     print("Error el estado no cumple con los requisitos. Proceso cancelado")
                     proceso_activo = False
+                    
             if proceso_activo: 
                 try:
                     horas = int(input("Ingrese la cantidad de horas jugadas: "))
@@ -304,24 +184,32 @@ def main():
                 except ValueError:
                     print("Debes ingresar datos numericos")
                     proceso_activo = False
+                    
             if proceso_activo:
-                agregar_juego(biblioteca[usuario], titulo, plataforma, propietario, formato, estado, horas)
-                print("Juego agregado")
+                nuevo_juego = Juego(titulo, plataforma, propietario, formato, estado, horas) # Instanciamos el objeto Juego
+                objeto_usuario.agregar_juego(nuevo_juego) # Lo guardamos en el usuario mediante composición
         elif opcion == 4:
             while True:
-                usuario = input("Ingrese el usuario benjamin/primo: ").lower()
-                if usuario != "benjamin" and usuario != "primo":
-                    print("Usuario no existe en el sistema")
-                else:
+                usuario_elegido = input("Ingrese el usuario benjamin/primo: ").lower()
+                if usuario_elegido in ["benjamin", "primo"]:
                     break
-            titulo = input("Ingrese el titulo del juego: ").upper()
-            if buscar_juego(biblioteca[usuario], titulo):
-                eliminar_juego(biblioteca[usuario], titulo)
-                print( "Juego eliminado")
+                print("Usuario no existe en el sistema")
+
+            objeto_usuario = usuario_benjamin if usuario_elegido == "benjamin" else usuario_primo # Determinamos cuál es el objeto contenedor objetivo
+            titulo = input("Ingrese el titulo del juego a eliminar: ").strip()
+
+            if objeto_usuario.eliminar_juego(titulo): # Le pedimos al objeto que intente eliminar el juego de su propia lista
+                print("Juego eliminado con éxito.")
             else:
-                print("El juego no existe")
+                print("El juego no existe en este perfil.")
         elif opcion == 5:
-            mostrar_biblioteca(biblioteca)
+            print("\n========================================")
+            print("      BIBLIOTECA ACTUAL DE JUEGOS       ")
+            print("========================================")
+            usuario_benjamin.mostrar_mis_juegos()
+            print("-" * 40)
+            usuario_primo.mostrar_mis_juegos()
+            print("========================================\n")
         elif opcion == 6:
             print("Sistema de gestión finalizado.")
             break
