@@ -34,12 +34,22 @@ class Juego:
         print(f"Error: '{nuevo_estado}' no es un estado válido.")
         return False
 
-    def set_horas(self, horas_adicionales):
+    def agregar_horas(self, horas_adicionales): # Renombrado de set_horas a agregar_horas
         if horas_adicionales > 0:
             self.__horas += horas_adicionales
             return True
         print("Error: Las horas adicionales deben ser mayores a 0.")
         return False
+
+    def to_dict(self):
+        return {
+            "titulo": self.__titulo,
+            "plataforma": self.__plataforma,
+            "propietario": self.__propietario,
+            "formato": self.__formato,
+            "estado": self.__estado,
+            "horas": self.__horas
+        }
 
 if __name__ == "__main__":
     rdr2 = Juego("Red dead redemption 2", "PS4", "yo", "digital", "jugando", 30)
@@ -56,3 +66,4 @@ if __name__ == "__main__":
 
     print(f"Estado: {rdr2.get_estado()}")
     print(f"Horas: {rdr2.get_horas()} horas")
+

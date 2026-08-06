@@ -10,7 +10,6 @@ class Usuario:
 
     def agregar_juego(self, nuevo_juego): 
         self.__lista_juegos.append(nuevo_juego) 
-        print(f"Juego agregado con exito al perfil de {self.__nombre}")
 
     def mostrar_mis_juegos(self):
         print(f"--- Juegos de {self.__nombre} ---")
@@ -37,7 +36,7 @@ class Usuario:
         juegos_encontrados = []
         for juego in self.__lista_juegos:
             if juego.get_plataforma().upper() == plataforma_buscar.upper(): # Comparamos ignorando mayúsculas/minúsculas
-                texto = f"{juego.get_titulo()} -- Dueño del perfil: {self.__nombre}" # Construimos el mismo texto anterior
+                texto = f"{juego.get_titulo()} -- Propietario: {juego.get_propietario()}" # Ahora distingue por propietario, no por perfil
                 juegos_encontrados.append(texto)
         return juegos_encontrados
 
@@ -46,3 +45,9 @@ class Usuario:
             if juego.get_titulo().upper() == titulo_buscar.upper():
                 return juego
         return None
+
+    def to_dict(self):
+        return {
+            "nombre": self.__nombre,
+            "juegos": [juego.to_dict() for juego in self.__lista_juegos]
+        }
