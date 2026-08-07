@@ -50,7 +50,7 @@ class Biblioteca:
                     self.__usuario_principal = self.__usuarios[0]
                     
         except FileNotFoundError:
-            # El archivo no existe (primera ejecución). No hacemos nada, seguimos con el usuario por defecto.
+            # El archivo no existe (primera ejecución). Seguimos con el usuario por defecto sin lanzar error.
             pass
 
     def guardar_datos(self):
@@ -65,8 +65,8 @@ class Biblioteca:
         # Genera el reporte extra en CSV
         with open("reporte_juegos.csv", "w", newline="") as archivo_csv:
             escritor = csv.writer(archivo_csv)
-            # Fila 1: Encabezados
-            escritor.writerow(["Perfil", "Titulo", "Plataforma", "Propietario_Fisico", "Formato", "Estado", "Horas"])
+            # Fila 1: Encabezados limpios y precisos
+            escritor.writerow(["Perfil", "Titulo", "Plataforma", "Propietario", "Formato", "Estado", "Horas"])
             
             # Recorremos la biblioteca usando los diccionarios para facilitar el acceso
             for usuario in self.__usuarios:

@@ -34,7 +34,7 @@ class Juego:
         print(f"Error: '{nuevo_estado}' no es un estado válido.")
         return False
 
-    def agregar_horas(self, horas_adicionales): # Renombrado de set_horas a agregar_horas
+    def agregar_horas(self, horas_adicionales):
         if horas_adicionales > 0:
             self.__horas += horas_adicionales
             return True
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     print(f"Horas: {rdr2.get_horas()} horas")
 
     rdr2.set_estado("terminado")
-    rdr2.set_horas(100)
+    rdr2.agregar_horas(100)
 
     print(f"Estado: {rdr2.get_estado()}")
     print(f"Horas: {rdr2.get_horas()} horas")

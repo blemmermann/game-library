@@ -1,4 +1,4 @@
-from juego import Juego # del archivo juego importa la clase Juego
+from juego import Juego
 
 class Usuario:
     def __init__(self, nombre):
@@ -10,6 +10,7 @@ class Usuario:
 
     def agregar_juego(self, nuevo_juego): 
         self.__lista_juegos.append(nuevo_juego) 
+        # El print de confirmación se eliminó para evitar spam masivo durante la carga del JSON
 
     def mostrar_mis_juegos(self):
         print(f"--- Juegos de {self.__nombre} ---")
@@ -20,23 +21,23 @@ class Usuario:
                 print(f"- {juego.get_titulo()} ({juego.get_plataforma()})")
 
     def buscar_juego(self, titulo_buscar):
-        for juego in self.__lista_juegos: # Usamos el getter get_titulo() porque el atributo es privado
+        for juego in self.__lista_juegos:
             if juego.get_titulo().upper() == titulo_buscar.upper():
-                return True # El juego ya existe
-        return False # El juego no existe
+                return True
+        return False
 
     def eliminar_juego(self, titulo_buscar):
-        for i, juego in enumerate(self.__lista_juegos): # Usamos el getter porque __titulo es privado en la clase Juego
+        for i, juego in enumerate(self.__lista_juegos):
             if juego.get_titulo().upper() == titulo_buscar.upper():
                 del self.__lista_juegos[i]
-                return True # Se eliminó con éxito
-        return False # No se encontró el juego
+                return True 
+        return False
 
     def buscar_por_plataforma(self, plataforma_buscar):
         juegos_encontrados = []
         for juego in self.__lista_juegos:
-            if juego.get_plataforma().upper() == plataforma_buscar.upper(): # Comparamos ignorando mayúsculas/minúsculas
-                texto = f"{juego.get_titulo()} -- Propietario: {juego.get_propietario()}" # Ahora distingue por propietario, no por perfil
+            if juego.get_plataforma().upper() == plataforma_buscar.upper():
+                texto = f"{juego.get_titulo()} -- Propietario: {juego.get_propietario()}"
                 juegos_encontrados.append(texto)
         return juegos_encontrados
 
@@ -45,8 +46,9 @@ class Usuario:
             if juego.get_titulo().upper() == titulo_buscar.upper():
                 return juego
         return None
-
+        
     def to_dict(self):
+        # Convierte el usuario y toda su lista de objetos Juego a diccionarios
         return {
             "nombre": self.__nombre,
             "juegos": [juego.to_dict() for juego in self.__lista_juegos]
